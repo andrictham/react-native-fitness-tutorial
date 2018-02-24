@@ -5,7 +5,7 @@ import {
 	MaterialIcons,
 	MaterialCommunityIcons,
 } from '@expo/vector-icons'
-import { white, black } from './colors'
+import { black } from './colors'
 
 export function getActivityMetaInfo(activity) {
 	const info = {
@@ -18,7 +18,7 @@ export function getActivityMetaInfo(activity) {
 			getIcon() {
 				return (
 					<View>
-						<MaterialIcons name="directions-run" color={white} size={35} />
+						<MaterialIcons name="directions-run" color={black} size={35} />
 					</View>
 				)
 			},
@@ -46,7 +46,7 @@ export function getActivityMetaInfo(activity) {
 			getIcon() {
 				return (
 					<View>
-						<MaterialCommunityIcons name="swim" color={white} size={35} />
+						<MaterialCommunityIcons name="swim" color={black} size={35} />
 					</View>
 				)
 			},
@@ -60,7 +60,7 @@ export function getActivityMetaInfo(activity) {
 			getIcon() {
 				return (
 					<View>
-						<FontAwesome name="bed" color={white} size={30} />
+						<FontAwesome name="bed" color={black} size={30} />
 					</View>
 				)
 			},
@@ -74,7 +74,7 @@ export function getActivityMetaInfo(activity) {
 			getIcon() {
 				return (
 					<View>
-						<MaterialCommunityIcons name="food" color={white} size={35} />
+						<MaterialCommunityIcons name="food" color={black} size={35} />
 					</View>
 				)
 			},

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { getActivityMetaInfo } from '../utils/helpers'
+import Slider from './Slider'
+import Steppers from './Steppers'
 
 export default class AddEntry extends Component {
 	state = {
@@ -42,6 +44,34 @@ export default class AddEntry extends Component {
 	}
 
 	render() {
-		return <View>{getActivityMetaInfo('bike').getIcon()}</View>
+		const metaInfo = getActivityMetaInfo()
+		return (
+			<View>
+				{Object.keys(metaInfo) // Return us an array which will have all the activities in it
+					.map(activity => {
+						const { getIcon, type, ...rest } = metaInfo[activity]
+						const value = this.state[activity]
+						return (
+							<View key={activity}>
+								{getIcon()}
+								{type === 'slider' ? (
+									<Slider
+										value={value}
+										onChange={value => this.slide(activity, value)}
+										{...rest}
+									/>
+								) : (
+									<Steppers
+										value={value}
+										onIncrement={() => this.increment(activity)}
+										onDecrement={() => this.decrement(activity)}
+										{...rest}
+									/>
+								)}
+							</View>
+						)
+					})}
+			</View>
+		)
 	}
 }
