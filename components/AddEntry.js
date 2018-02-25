@@ -1,12 +1,18 @@
 import React, { Component } from 'react'
-import { View, TouchableOpacity, Text } from 'react-native'
-import { getActivityMetaInfo, timeToString } from '../utils/helpers'
+import { ScrollView, View, TouchableOpacity, Text } from 'react-native'
+import {
+	getActivityMetaInfo,
+	timeToString,
+	getDailyReminderMessage,
+} from '../utils/helpers'
 import SliderComponent from './SliderComponent'
 import SteppersComponent from './SteppersComponent'
 import DateHeader from './DateHeader'
 import TextButton from './TextButton'
 import { Ionicons } from '@expo/vector-icons'
 import { submitEntry, removeEntry } from '../utils/api'
+import { connect } from 'react-redux'
+import { addEntry } from '../actions'
 
 const SubmitButton = ({ onPress }) => {
 	return (
@@ -16,7 +22,7 @@ const SubmitButton = ({ onPress }) => {
 	)
 }
 
-export default class AddEntry extends Component {
+class AddEntry extends Component {
 	state = {
 		run: 0,
 		bike: 0,
@@ -59,7 +65,12 @@ export default class AddEntry extends Component {
 		const key = timeToString() // Today’s date
 		const entry = this.state // Our activities’ metrics
 
-		// TODO: Update Redux
+		// Update Redux
+		this.props.dispatch(
+			addEntry({
+				[key]: entry,
+			}),
+		)
 
 		this.setState(() => ({
 			run: 0,
@@ -80,7 +91,12 @@ export default class AddEntry extends Component {
 	reset = () => {
 		const key = timeToString()
 
-		// TODO: Update Redux
+		// Update Redux
+		this.props.dispatch(
+			addEntry({
+				[key]: getDailyReminderMessage(),
+			}),
+		)
 
 		// TODO: Navigate to home
 
@@ -102,7 +118,7 @@ export default class AddEntry extends Component {
 		}
 
 		return (
-			<View style={{ marginTop: 30 }}>
+			<ScrollView style={{ marginTop: 30 }}>
 				<DateHeader date={new Date().toLocaleDateString()} />
 				{Object.keys(metaInfo) // Return us an array which will have all the activities in it
 					.map(activity => {
@@ -129,7 +145,16 @@ export default class AddEntry extends Component {
 						)
 					})}
 				<SubmitButton onPress={this.submit} />
-			</View>
+			</ScrollView>
 		)
 	}
 }
+
+function mapStateToProps(state) {
+	const key = timeToString()
+	return {
+		alreadyLogged: state[key] && typeof state[key].today === 'undefined',
+	}
+}
+
+export default connect(mapStateToProps)(AddEntry)
