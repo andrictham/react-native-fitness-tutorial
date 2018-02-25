@@ -1,9 +1,17 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
-import { getActivityMetaInfo } from '../utils/helpers'
+import { View, TouchableOpacity, Text } from 'react-native'
+import { getActivityMetaInfo, timeToString } from '../utils/helpers'
 import Slider from './Slider'
 import Steppers from './Steppers'
 import DateHeader from './DateHeader'
+
+const SubmitButton = ({ onPress }) => {
+	return (
+		<TouchableOpacity onPress={onPress}>
+			<Text>Submit</Text>
+		</TouchableOpacity>
+	)
+}
 
 export default class AddEntry extends Component {
 	state = {
@@ -44,6 +52,27 @@ export default class AddEntry extends Component {
 		}))
 	}
 
+	submit = () => {
+		const key = timeToString() // Today’s date
+		const entry = this.state // Our activities’ metrics
+
+		// TODO: Update Redux
+
+		this.setState(() => ({
+			run: 0,
+			bike: 0,
+			swim: 0,
+			sleep: 0,
+			eat: 0,
+		}))
+
+		// TODO: Navigate to home
+
+		// TODO: Save to "DB"
+
+		// TODO: Clear local notification
+	}
+
 	render() {
 		const metaInfo = getActivityMetaInfo()
 		return (
@@ -73,6 +102,7 @@ export default class AddEntry extends Component {
 							</View>
 						)
 					})}
+				<SubmitButton onPress={this.submit} />
 			</View>
 		)
 	}
