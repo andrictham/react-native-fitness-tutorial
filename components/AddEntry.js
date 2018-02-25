@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
 import { getActivityMetaInfo, timeToString } from '../utils/helpers'
-import Slider from './Slider'
-import Steppers from './Steppers'
+import SliderComponent from './SliderComponent'
+import SteppersComponent from './SteppersComponent'
 import DateHeader from './DateHeader'
 
 const SubmitButton = ({ onPress }) => {
@@ -86,13 +86,13 @@ export default class AddEntry extends Component {
 							<View key={activity}>
 								{getIcon()}
 								{type === 'slider' ? (
-									<Slider
+									<SliderComponent
 										value={value}
 										onChange={value => this.slide(activity, value)}
 										{...rest}
 									/>
 								) : (
-									<Steppers
+									<SteppersComponent
 										value={value}
 										onIncrement={() => this.increment(activity)}
 										onDecrement={() => this.decrement(activity)}
