@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {
-	ScrollView,
 	View,
 	TouchableOpacity,
 	Text,
@@ -130,13 +129,15 @@ class AddEntry extends Component {
 						size={100}
 					/>
 					<Text>You already logged your information for today</Text>
-					<TextButton onPress={this.reset}>Reset</TextButton>
+					<TextButton onPress={this.reset} style={{ padding: 20 }}>
+						Reset
+					</TextButton>
 				</View>
 			)
 		}
 
 		return (
-			<ScrollView style={styles.container}>
+			<View style={styles.container}>
 				<DateHeader date={new Date().toLocaleDateString()} />
 				{Object.keys(metaInfo) // Return us an array which will have all the activities in it
 					.map(activity => {
@@ -163,7 +164,7 @@ class AddEntry extends Component {
 						)
 					})}
 				<SubmitButton onPress={this.submit} />
-			</ScrollView>
+			</View>
 		)
 	}
 }
