@@ -4,6 +4,8 @@ import { getActivityMetaInfo, timeToString } from '../utils/helpers'
 import SliderComponent from './SliderComponent'
 import SteppersComponent from './SteppersComponent'
 import DateHeader from './DateHeader'
+import TextButton from './TextButton'
+import { Ionicons } from '@expo/vector-icons'
 
 const SubmitButton = ({ onPress }) => {
 	return (
@@ -73,8 +75,29 @@ export default class AddEntry extends Component {
 		// TODO: Clear local notification
 	}
 
+	reset = () => {
+		const key = timeToString()
+
+		// TODO: Update Redux
+
+		// TODO: Navigate to home
+
+		// TODO: Update "DB"
+	}
+
 	render() {
 		const metaInfo = getActivityMetaInfo()
+
+		if (this.props.alreadyLogged) {
+			return (
+				<View>
+					<Ionicons name="ios-happy-outline" size={100} />
+					<Text>You already logged your information for today</Text>
+					<TextButton onPress={this.reset}>Reset</TextButton>
+				</View>
+			)
+		}
+
 		return (
 			<View style={{ marginTop: 30 }}>
 				<DateHeader date={new Date().toLocaleDateString()} />
