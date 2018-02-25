@@ -6,6 +6,7 @@ import SteppersComponent from './SteppersComponent'
 import DateHeader from './DateHeader'
 import TextButton from './TextButton'
 import { Ionicons } from '@expo/vector-icons'
+import { submitEntry, removeEntry } from '../utils/api'
 
 const SubmitButton = ({ onPress }) => {
 	return (
@@ -70,7 +71,8 @@ export default class AddEntry extends Component {
 
 		// TODO: Navigate to home
 
-		// TODO: Save to "DB"
+		// Set item in AsyncStorage
+		submitEntry({ key, entry })
 
 		// TODO: Clear local notification
 	}
@@ -82,7 +84,8 @@ export default class AddEntry extends Component {
 
 		// TODO: Navigate to home
 
-		// TODO: Update "DB"
+		// Update AsyncStorage
+		removeEntry(key)
 	}
 
 	render() {
