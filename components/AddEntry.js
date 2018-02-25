@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import { getActivityMetaInfo } from '../utils/helpers'
 import Slider from './Slider'
 import Steppers from './Steppers'
+import DateHeader from './DateHeader'
 
 export default class AddEntry extends Component {
 	state = {
@@ -46,7 +47,8 @@ export default class AddEntry extends Component {
 	render() {
 		const metaInfo = getActivityMetaInfo()
 		return (
-			<View>
+			<View style={{ marginTop: 30 }}>
+				<DateHeader date={new Date().toLocaleDateString()} />
 				{Object.keys(metaInfo) // Return us an array which will have all the activities in it
 					.map(activity => {
 						const { getIcon, type, ...rest } = metaInfo[activity]
