@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { receiveEntries, addEntry } from '../actions/index'
 import { timeToString, getDailyReminderMessage } from '../utils/helpers'
 import { fetchCalendarResults } from '../utils/api'
+import UdaciFitnessCalendar from 'udacifitness-calendar'
 
 class History extends Component {
 	componentDidMount() {
@@ -16,17 +17,40 @@ class History extends Component {
 					// if there are no entries for today, then set the value in our Redux store for today’s date to be our “daily reminder message”
 					dispatch(
 						addEntry({
-							[timeToString()]: getDailyReminderMessage,
+							[timeToString()]: getDailyReminderMessage(),
 						}),
 					)
 				}
 			})
 	}
-	render() {
+
+	renderItem = ({ today, ...previousDays }, formattedDate, key) => (
+		<View>
+			{today ? (
+				<Text>{JSON.stringify(today)}</Text>
+			) : (
+				<Text>{JSON.stringify(previousDays)}</Text>
+			)}
+		</View>
+	)
+
+	// Called if the specific date in our Redux state is null
+	renderEmptyDate(formattedDate) {
 		return (
 			<View>
-				<Text>{JSON.stringify(this.props)}</Text>
+				<Text>No data for this date</Text>
 			</View>
+		)
+	}
+
+	render() {
+		const { entries } = this.props
+		return (
+			<UdaciFitnessCalendar
+				items={entries}
+				renderItem={this.renderItem}
+				renderEmptyDate={this.renderEmptyDate}
+			/>
 		)
 	}
 }
