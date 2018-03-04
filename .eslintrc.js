@@ -9,7 +9,6 @@ module.exports = {
 	},
 	extends: ['eslint:recommended', 'plugin:react/recommended'],
 	parserOptions: {
-		ecmaVersion: 2017,
 		ecmaFeatures: {
 			experimentalObjectRestSpread: true,
 			jsx: true,
@@ -27,7 +26,8 @@ module.exports = {
 		'react/jsx-uses-vars': 1,
 		'react-native/no-unused-styles': 2,
 		'react-native/split-platform-components': 2,
-		'react-native/no-inline-styles': 2,
+		'react-native/no-inline-styles': 'off',
 		'react/prop-types': 'off',
+		'react/display-name': 'off',
 	},
 }
