@@ -43,7 +43,7 @@ class History extends Component {
 	}
 
 	renderItem = ({ today, ...previousDays }, formattedDate, key) => (
-		<View style={styles.item}>
+		<View style={styles.item} key={key}>
 			{today ? (
 				<View>
 					<DateHeader date={formattedDate} />
