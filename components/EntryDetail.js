@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
+import { white } from '../utils/colors'
+import ActivityCard from './ActivityCard'
 
 class EntryDetail extends Component {
 	static navigationOptions = ({ navigation }) => {
@@ -15,14 +18,35 @@ class EntryDetail extends Component {
 	}
 
 	render() {
+		const { activities } = this.props
+
 		return (
-			<View>
-				<Text>
+			<View style={styles.container}>
+				<ActivityCard activities={activities} />
+				{/* <Text>
 					Entry Detail – {this.props.navigation.state.params.entryID}{' '}
-				</Text>
+				</Text> */}
 			</View>
 		)
 	}
 }
 
-export default EntryDetail
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: white,
+		padding: 15,
+	},
+})
+
+const mapStateToProps = (state, { navigation }) => {
+	// We get passed the state from Redux and navigation from our local component props
+	const { entryID } = navigation.state.params
+
+	return {
+		entryID,
+		activities: state[entryID],
+	}
+}
+
+export default connect(mapStateToProps)(EntryDetail)
