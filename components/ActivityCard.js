@@ -21,8 +21,7 @@ const ActivityCard = ({ date, activities }) => (
 					<View>
 						<Text style={{ fontSize: 20 }}>{displayName}</Text>
 						<Text style={{ fontSize: 16, color: gray }}>
-							{activities[activity]}
-							{unit}
+							{activities[activity]} {unit}
 						</Text>
 					</View>
 				</View>
